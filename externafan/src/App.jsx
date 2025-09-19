@@ -65,14 +65,16 @@ export default function ExternafanSite() {
     const ids = ["hero", "whyus", "services", "process", "results", "pricing", "faq", "contact"];
     ids.forEach((id) => console.assert(!!document.getElementById(id), `[externafan test] Missing section: ${id}`));
 
-    const form = document.querySelector("#contact form") as HTMLFormElement | null;
+    const form = document.querySelector("#contact form");
     if (form) {
-      const name = form.querySelector('input[name="name"]') as HTMLInputElement | null;
-      const email = form.querySelector('input[name="email"]') as HTMLInputElement | null;
+      const name = form.querySelector('input[name="name"]');
+      const email = form.querySelector('input[name="email"]');
       console.assert(name?.required, "[externafan test] Name should be required");
       console.assert(email?.type === "email" && email?.required, "[externafan test] Email should be type=email & required");
       const phone = form.querySelector('input[name="phone"]');
       console.assert(!phone, "[externafan test] Phone field should NOT exist");
+      const submitBtn = form.querySelector('button[type="submit"]');
+      console.assert(submitBtn, "[externafan test] Submit button should exist");
     }
 
     const footerLeft = document.querySelector("footer .text-slate-400.text-sm");
@@ -80,7 +82,7 @@ export default function ExternafanSite() {
     console.assert(footerLeft && footerRight, "[externafan test] Footer text blocks should exist");
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     const formData = new FormData(e.currentTarget);
